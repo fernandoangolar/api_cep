@@ -1,15 +1,42 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import model.Endereco;
+import record.EnderecoCep;
+import service.ArquivoService;
+import service.EnderecoService;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+        Scanner leitura = new Scanner(System.in);
+
+        String busca = "";
+
+        List<Endereco> enderecos = new ArrayList<>();
+        EnderecoService enderecoService = new EnderecoService();
+        ArquivoService arquivoService = new ArquivoService();
+
+        while (!busca.equalsIgnoreCase("sair")) {
+
+            System.out.println("Digite o CEP para buscar: ");
+            busca = leitura.nextLine();
+
+            if (busca.equalsIgnoreCase("sair")) {
+                break;
+            }
+
+            try {
+                Endereco endereco = enderecoService.buscarEndereco(busca);
+                enderecos.add(endereco);
+                arquivoService.salvarEnderecoEmArquivo(enderecos);
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Finalizando a aplicação");
+            }
+
         }
     }
 }

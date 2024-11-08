@@ -1,0 +1,14 @@
+[
+  {
+    "cep": "01001-000",
+    "logradouro": "Praça da Sé",
+    "localidade": "São Paulo",
+    "uf": "SP"
+  },
+  {
+    "cep": "99999-999",
+    "logradouro": "Avenida das Torres",
+    "localidade": "Sarandi",
+    "uf": "PR"
+  }
+]
